@@ -10,7 +10,8 @@
                 </div>
 
                 <div class="card-block">
-                    <form action="/profile/resume/update/{{ $resume->id }}" method="post">
+                    <form action="{{ route('updateResume', ['id' => $resume->id]) }}" method="post">
+                        {{ method_field('PUT') }}
                         {{ csrf_field() }}
 
                         @if(count($errors) > 0)
@@ -45,10 +46,10 @@
                         <div class="form-group row">
                             <label for="selectCity" class="col-2 col-form-label">City</label>
                             <div class="col-4">
-                                <select class="form-control" id="selectCity" name="city">
+                                <select class="form-control" id="selectCity" name="city_id">
                                     @foreach($cities as $city)
                                         <option
-                                                @if($resume->city == $city->id)
+                                                @if($resume->city_id == $city->id)
                                                 selected
                                                 @endif
                                                 value="{{ $city->id }}">

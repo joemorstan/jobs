@@ -18,15 +18,22 @@
                                 Not active
                             @endif
                         </span>
-                        <form action="/dashboard/resume/updateDate/{{ $resume->id }}" class="d-inline-block" method="post" id="resume-{{ $resume->id }}">
+                        <form action="{{ route('updateResumeDate', ['id' => $resume->id]) }}" class="d-inline-block" method="post" id="resume-{{ $resume->id }}">
                             {{ csrf_field() }}
-                            <a href="javascript:void(0);" onclick="document.getElementById('resume-{{ $resume->id }}').submit();" class="btn btn-danger ml-3">Update</a>
+                            <a href="javascript:void(0);" onclick="document.getElementById('resume-{{ $resume->id }}').submit();" class="btn btn-outline-success ml-3">Update</a>
+                        </form>
+
+                        <form action="{{ route('deleteResume', ['id' => $resume->id]) }}" class="d-block float-right" method="post" id="delete-resume-{{ $resume->id }}">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+
+                            <a href="javascript:void(0);" onclick="document.getElementById('delete-resume-{{ $resume->id }}').submit();" class="btn btn-danger">Delete</a>
                         </form>
 
                     </div>
 
                     <div class="card-block">
-                        <h4><a href="/dashboard/resume/edit/{{ $resume->id }}">{{ $resume->title }}</a></h4>
+                        <h4><a href="{{ route('editResume', ['id' => $resume->id]) }}">{{ $resume->title }}</a></h4>
 
                         @if($resume->salary > 0)
                             <p><strong>{{ $resume->salary }} USD</strong></p>
@@ -38,7 +45,7 @@
         @endif
 
         <div class="text-center">
-            <a href="{{ route('buildResume') }}" class="btn btn-outline-primary btn-lg">Create new</a>
+            <a href="{{ route('buildResumeGet') }}" class="btn btn-outline-primary btn-lg">Create new</a>
         </div>
 
     </div>

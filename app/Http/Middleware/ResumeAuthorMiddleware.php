@@ -7,7 +7,7 @@ use App\User;
 use Sentinel;
 use Closure;
 
-class ResumeOwnerMiddleware
+class ResumeAuthorMiddleware
 {
     /**
      * Handle an incoming request.

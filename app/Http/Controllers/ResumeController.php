@@ -57,7 +57,7 @@ class ResumeController extends Controller
 
         $user->resumes()->save($resume);
 
-        return back()->with('success', 'Resume was successfully saved');
+        return redirect()->route('myResumes');
     }
 
     /**
@@ -122,7 +122,11 @@ class ResumeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $resume = Resume::find($id);
+
+        $resume->delete();
+
+        return back();
     }
 
     public function updateDate($id)

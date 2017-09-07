@@ -33,17 +33,22 @@ Route::middleware(['visitors'])->group(function() {
 
 Route::post('/logout', 'LoginController@logout')->name('logout');
 
+
 Route::group(['prefix' => 'dashboard', 'middleware' => 'client'], function() {
 
+    Route::get('/build-resume', 'ResumeController@create')->name('buildResumeGet');
+    Route::post('/build-resume', 'ResumeController@store')->name('buildResumePost');
+
     Route::get('/resumes', 'ResumeController@index')->name('myResumes');
-    Route::get('/resume/edit/{id}', 'ResumeController@edit')->middleware('resumeAuthor');
-    Route::post('/resume/update/{id}', 'ResumeController@update')->middleware('resumeAuthor');
-    Route::post('/resume/updateDate/{id}', 'ResumeController@updateDate');
 
-    Route::get('/build-resume', 'ResumeController@create')->name('buildResume');
-    Route::post('/build-resume', 'ResumeController@store');
-
+    Route::middleware(['resumeAuthor'])->group(function() {
+        Route::get('/resume/edit/{id}', 'ResumeController@edit')->name('editResume');
+        Route::put('/resume/update/{id}', 'ResumeController@update')->name('updateResume');
+        Route::post('/resume/updateDate/{id}', 'ResumeController@updateDate')->name('updateResumeDate');
+        Route::delete('/resume/delete/{id}', 'ResumeController@destroy')->name('deleteResume');
+    });
 });
+
 
 Route::group(['prefix' => '/employer/dashboard', 'middleware' => 'employer'], function() {
 

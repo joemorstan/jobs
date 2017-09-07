@@ -10,7 +10,7 @@
             </div>
 
             <div class="card-block">
-                <form action="/profile/build-resume" method="post">
+                <form action="{{ route('buildResumePost') }}" method="post">
                     {{ csrf_field() }}
 
                     <div class="form-group row">
@@ -28,7 +28,7 @@
                     <div class="form-group row">
                         <label for="selectCity" class="col-2 col-form-label">City</label>
                         <div class="col-4">
-                            <select class="form-control" id="selectCity" name="city" required>
+                            <select class="form-control" id="selectCity" name="city_id" required>
                                 @foreach($cities as $city)
                                     <option value="{{ $city->id }}">{{ $city->name }}</option>
                                 @endforeach
@@ -45,7 +45,7 @@
 
                     <div class="row justify-content-end">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" name="active">
+                            <input type="checkbox" class="custom-control-input" name="active" checked>
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Publish immediately</span>
                         </label>

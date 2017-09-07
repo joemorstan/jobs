@@ -18,7 +18,7 @@ class Resume extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'user_id', 'description', 'active', 'title', 'salary',
+        'user_id', 'description', 'active', 'title', 'salary', 'city_id',
     ];
 
     public function user()
