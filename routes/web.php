@@ -42,6 +42,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'client'], function() {
     Route::get('/resumes', 'ResumeController@index')->name('myResumes');
 
     Route::middleware(['resumeAuthor'])->group(function() {
+
         Route::get('/resume/edit/{id}', 'ResumeController@edit')->name('editResume');
         Route::put('/resume/update/{id}', 'ResumeController@update')->name('updateResume');
         Route::post('/resume/updateDate/{id}', 'ResumeController@updateDate')->name('updateResumeDate');
