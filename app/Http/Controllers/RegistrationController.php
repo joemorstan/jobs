@@ -39,7 +39,7 @@ class RegistrationController extends Controller
     {
         $dob = "$request->year-$request->month-$request->day";
 
-        $user = Sentinel::registerAndActivate(array_merge($request->all(), ['dob' => $dob]));
+        $user = Sentinel::register(array_merge($request->all(), ['dob' => $dob]));
 
         $activation = Activation::create($user);
 
