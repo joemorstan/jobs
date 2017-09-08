@@ -70,7 +70,11 @@ class ResumeController extends Controller
     {
         $resume = Resume::find($id);
 
-        return view('resume')->with(['resume' => $resume, 'title' => $resume->title]);
+        return view('resume')->with([
+            'resume' => $resume,
+            'title' => $resume->title,
+            'user' => Sentinel::getUser(),
+        ]);
     }
 
     /**

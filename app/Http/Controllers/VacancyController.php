@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Carbon\Carbon;
 use App\City;
 use App\Http\Requests\StoreNewVacancy;
@@ -16,7 +17,10 @@ class VacancyController extends Controller
         $user = Sentinel::getUser();
         $vacancies = $user->vacancies()->get();
 
-        return view('employer.vacancies')->with(['title' => 'My vacancies', 'vacancies' => $vacancies]);
+        return view('employer.vacancies')->with([
+            'title' => 'My vacancies',
+            'vacancies' => $vacancies,
+        ]);
     }
 
     public function create()
@@ -92,6 +96,10 @@ class VacancyController extends Controller
     {
         $vacancy = Vacancy::find($id);
 
-        return view('vacancy')->with(['vacancy' => $vacancy, 'title' => $vacancy->title]);
+        return view('vacancy')->with([
+            'vacancy' => $vacancy,
+            'title' => $vacancy->title,
+            'user' => Sentinel::getUser(),
+        ]);
     }
 }

@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-11 mx-auto">
-            <div class="card">
+    @if($resumes)
+        @foreach($resumes as $resume)
+            <div class="card mb-3">
                 <div class="card-header">
-                    <h4 class="d-inline-block">{{ $resume->title }}</h4>
+                    <h4 class="d-inline-block"><a href="/resume/{{ $resume->id }}">{{ $resume->title }}</a></h4>
 
                     @if($user->favoriteResumes()->where('resume_id', $resume->id)->first())
                         <form action="{{ route('removeFavoriteResume', ['id' => $resume->id]) }}" class="d-inline-block float-right" method="post" id="resume-{{ $resume->id }}">
@@ -20,23 +20,19 @@
                             <a href="javascript:void(0);" onclick="document.getElementById('resume-{{ $resume->id }}').submit();"><i class="fa fa-star-o fa-lg fav-star"></i></a>
                         </form>
                     @endif
+
                 </div>
-
                 <div class="card-block">
-
-                    <p>Name: {{ $resume->user()->first()->first_name }} {{ $resume->user()->first()->last_name }}</p>
-
-                    <p>City: {{ $resume->city()->first()->name }}</p>
-
-                    <p>Desired Salary: <strong>$ {{ $resume->salary }}</strong></p>
-
-                    <p>Email: <strong>{{ $resume->user()->first()->email }}</strong></p>
-
-                    <p>{{ $resume->description }}</p>
-
+                    <h6>{{ $resume->user()->first()->first_name }} {{ $resume->user()->first()->last_name }}</h6>
+                    <h6>$ {{ $resume->salary }}</h6>
+                    <p class="card-text">{{ $resume->description }}</p>
                 </div>
             </div>
+        @endforeach
+        <div class="row justify-content-center">
+            {{ $resumes->links('vendor.pagination.bootstrap-4') }}
         </div>
-    </div>
+    @endif
+
 
 @endsection

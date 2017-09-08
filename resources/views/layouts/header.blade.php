@@ -19,6 +19,9 @@
                             <li class="nav-item">
                                 <a href="{{ route('myResumes') }}" class="nav-link">My resumes</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('favoriteVacancies') }}" class="nav-link">Favorites</a>
+                            </li>
 
                         @elseif(Sentinel::inRole('employer'))
 
@@ -28,12 +31,13 @@
                             <li class="nav-item">
                                 <a href="{{ route('myVacancies') }}" class="nav-link">My vacancies</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('favoriteResumes') }}" class="nav-link">Favorites</a>
+                            </li>
 
                         @endif
 
-                        <li class="nav-item">
-                            <a href="/favorites" class="nav-link">Favorites</a>
-                        </li>
+
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ Sentinel::getUser()->getUserLogin() }}</a>

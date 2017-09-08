@@ -62,4 +62,14 @@ class User extends EloquentUser
     {
         return $this->hasMany('App\Vacancy');
     }
+
+    public function favoriteVacancies()
+    {
+        return $this->belongsToMany('App\Vacancy');
+    }
+
+    public function favoriteResumes()
+    {
+        return $this->belongsToMany('App\Resume');
+    }
 }

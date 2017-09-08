@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Sentinel;
 use App\Vacancy;
 use App\Resume;
 use Illuminate\Http\Request;
@@ -12,14 +13,22 @@ class SearchController extends Controller
     {
         $resumes = Resume::paginate(5);
 
-        return view('find-resume')->with(['resumes' => $resumes, 'title' => 'Resumes']);
+        return view('resumes')->with([
+            'resumes' => $resumes,
+            'title' => 'Resumes',
+            'user' => Sentinel::getUser(),
+        ]);
     }
 
     public function vacancies()
     {
         $vacancies = Vacancy::paginate(5);
 
-        return view('vacancies')->with(['vacancies' => $vacancies, 'title' => 'Vacancies']);
+        return view('vacancies')->with([
+            'vacancies' => $vacancies,
+            'title' => 'Vacancies',
+            'user' => Sentinel::getUser(),
+        ]);
     }
 
     public function vacancySearch(Request $request)
@@ -29,7 +38,7 @@ class SearchController extends Controller
         $query = $query->where('active', true);
 
         if (!empty($request->city)) {
-            $query = $query->where('city', $request->city);
+            $query = $query->where('city_id', $request->city);
         }
 
         if (!empty($request->keyword)) {
@@ -38,6 +47,11 @@ class SearchController extends Controller
 
         $vacancies = $query->paginate(5);
 
-        return view('vacancies')->with(['title' => 'My vacancies', 'vacancies' => $vacancies]);
+        return view('vacancies')
+            ->with([
+                'title' => 'My vacancies',
+                'vacancies' => $vacancies,
+                'user' => Sentinel::getUser(),
+            ]);
     }
 }

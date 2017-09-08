@@ -29,4 +29,9 @@ class Vacancy extends Model
     {
         return $this->belongsTo('App\City');
     }
+
+    public function favorites()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }

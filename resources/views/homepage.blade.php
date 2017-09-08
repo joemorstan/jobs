@@ -6,7 +6,7 @@
     <div class="card-block">
         <h4 class="card-title">Find the job of your dream with us!</h4>
 
-        <form action="/searchVacancies" method="get" class="mt-5">
+        <form action="{{ route('findVacancy') }}" method="get" class="mt-5">
 
                 <div class="form-group row">
                     <div class="col-11">
