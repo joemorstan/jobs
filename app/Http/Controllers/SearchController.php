@@ -49,8 +49,32 @@ class SearchController extends Controller
 
         return view('vacancies')
             ->with([
-                'title' => 'My vacancies',
+                'title' => 'Vacancies',
                 'vacancies' => $vacancies,
+                'user' => Sentinel::getUser(),
+            ]);
+    }
+
+    public function resumeSearch(Request $request)
+    {
+        $query = Resume::query();
+
+        $query = $query->where('active', true);
+
+        if (!empty($request->city)) {
+            $query = $query->where('city_id', $request->city);
+        }
+
+        if (!empty($request->keyword)) {
+            $query = $query->where('title', 'like', "%{$request->keyword}%");
+        }
+
+        $resumes = $query->paginate(5);
+
+        return view('resumes')
+            ->with([
+                'title' => 'Resumes',
+                'resumes' => $resumes,
                 'user' => Sentinel::getUser(),
             ]);
     }

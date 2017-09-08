@@ -9,64 +9,78 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    @if (Sentinel::check())
 
-                        @if (Sentinel::inRole('client'))
-
-                            <li class="nav-item">
-                                <a href="/vacancies" class="nav-link">Browse vacancies</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('myResumes') }}" class="nav-link">My resumes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('favoriteVacancies') }}" class="nav-link">Favorites</a>
-                            </li>
-
-                        @elseif(Sentinel::inRole('employer'))
+                    @if(strpos($_SERVER['REQUEST_URI'], 'employer'))
 
                             <li class="nav-item">
-                                <a href="/resumes" class="nav-link">Browse resumes</a>
+                                <a href="{{ route('findResume') }}" class="nav-link">Browse resumes</a>
                             </li>
+                    @else
+
                             <li class="nav-item">
-                                <a href="{{ route('myVacancies') }}" class="nav-link">My vacancies</a>
+                                <a href="{{ route('findVacancy') }}" class="nav-link">Browse vacancies</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('favoriteResumes') }}" class="nav-link">Favorites</a>
+                    @endif
+
+                    @if(Sentinel::check())
+                            @if(Sentinel::inRole('client'))
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('myResumes') }}" class="nav-link">My resumes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('favoriteVacancies') }}" class="nav-link">Favorites</a>
+                                    </li>
+
+                            @elseif(Sentinel::inRole('employer'))
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('myVacancies') }}" class="nav-link">My vacancies</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('favoriteResumes') }}" class="nav-link">Favorites</a>
+                                    </li>
+
+                            @endif
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ Sentinel::getUser()->getUserLogin() }}</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <form action="{{ route('logout') }}" method="post" id="logoutForm">
+                                        {{ csrf_field() }}
+                                        <a class="dropdown-item" href="javascript:void(0);" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+                                    </form>
+                                </div>
                             </li>
-
-                        @endif
-
-
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ Sentinel::getUser()->getUserLogin() }}</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                                <div class="dropdown-divider"></div>
-                                <form action="{{ route('logout') }}" method="post" id="logoutForm">
-                                    {{ csrf_field() }}
-                                    <a class="dropdown-item" href="javascript:void(0);" onclick="document.getElementById('logoutForm').submit();">Logout</a>
-                                </form>
-                            </div>
-                        </li>
 
                     @else
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/vacancies">Browse vacancies</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/employer">For employer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            </li>
 
                     @endif
+
+
+                    @if(strpos($_SERVER['REQUEST_URI'], 'employer'))
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('home') }}">For office-seeker</a>
+                            </li>
+
+                    @else
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('employerHome') }}">For employer</a>
+                            </li>
+
+                    @endif
+
                 </ul>
             </div>
         </div>

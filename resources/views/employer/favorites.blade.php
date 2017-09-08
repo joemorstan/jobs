@@ -12,7 +12,7 @@
                         <a class="fav-star" href="javascript:void(0);" onclick="document.getElementById('resume-{{ $resume->id }}').submit();"><i class="fa fa-star fa-lg"></i></a>
                     </form>
 
-                    <a href="/resume/{{ $resume->id }}">{{$resume->title}}</a>
+                    <a href="{{ route('resumeResult', $resume->id) }}">{{$resume->title}}</a>
                 </li>
             @endforeach
         </ul>

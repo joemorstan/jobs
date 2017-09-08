@@ -32,7 +32,7 @@ class ResumeController extends Controller
      */
     public function create()
     {
-        $cities = City::all();
+        $cities = City::select('id', 'name')->get();
 
         return view('client.build-resume')->with(['title' => 'Resume builder', 'cities' => $cities]);
     }
@@ -86,7 +86,7 @@ class ResumeController extends Controller
     public function edit($id)
     {
         $resume = Resume::find($id);
-        $cities = City::all();
+        $cities = City::select('id', 'name')->get();
 
         return view('client.edit-resume')->with([
             'resume' => $resume,

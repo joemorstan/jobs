@@ -16,6 +16,11 @@ Route::get('/', function () {
     return view('homepage')->with(['title' => 'Jobs', 'cities' => $cities]);
 })->name('home');
 
+Route::get('/employer', function () {
+    $cities = App\City::all()->sortBy('name');
+    return view('employer-homepage')->with(['title' => 'Jobs', 'cities' => $cities]);
+})->name('employerHome');
+
 Route::middleware(['visitors'])->group(function() {
     Route::get('/login', 'LoginController@login')->name('login');
     Route::post('/login', 'LoginController@postLogin');
@@ -85,11 +90,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/earnings', 'AdminController@earnings');
 });
 
-Route::get('/resumes', 'SearchController@resumes')->name('findResume');
+Route::get('/employer/resumes', 'SearchController@resumeSearch')->name('findResume');
 Route::get('/vacancies', 'SearchController@vacancySearch')->name('findVacancy');
-Route::get('/vacancy/{id}', 'VacancyController@show');
-Route::get('/resume/{id}', 'ResumeController@show');
+Route::get('/vacancy/{id}', 'VacancyController@show')->name('vacancyResult');
+Route::get('/employer/resume/{id}', 'ResumeController@show')->name('resumeResult');
 
-Route::get('/searchVacancies', 'SearchController@vacancySearch');
 
 Route::get('profile', 'ProfileController@profile')->name('profile');
