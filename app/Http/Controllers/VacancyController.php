@@ -102,4 +102,19 @@ class VacancyController extends Controller
             'user' => Sentinel::getUser(),
         ]);
     }
+
+    public function activate($id)
+    {
+        $vacancy = Vacancy::find($id);
+
+        if ($vacancy->active) {
+            $vacancy->active = false;
+        } else {
+            $vacancy->active = true;
+        }
+
+        $vacancy->save();
+
+        return back();
+    }
 }

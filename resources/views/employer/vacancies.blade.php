@@ -42,6 +42,19 @@
                             <p><strong>{{ $vacancy->salary }} USD</strong></p>
                         @endif
 
+                        <form action="{{ route('activateVacancy', ['id' => $vacancy->id]) }}" method="post" id="activate-vacancy-{{ $vacancy->id }}">
+                            {{ csrf_field() }}
+
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="{{ $vacancy->active }}"
+                                           onclick="document.getElementById('activate-vacancy-{{ $vacancy->id }}').submit();"
+                                            {{ !$vacancy->active ?: 'checked' }}>
+                                    Active
+                                </label>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             @endforeach

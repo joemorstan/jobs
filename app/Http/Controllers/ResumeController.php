@@ -141,4 +141,19 @@ class ResumeController extends Controller
 
         return back();
     }
+
+    public function activate($id)
+    {
+        $resume = Resume::find($id);
+
+        if ($resume->active) {
+            $resume->active = false;
+        } else {
+            $resume->active = true;
+        }
+
+        $resume->save();
+
+        return back();
+    }
 }

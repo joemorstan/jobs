@@ -52,6 +52,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'client'], function() {
         Route::put('/resume/update/{id}', 'ResumeController@update')->name('updateResume');
         Route::post('/resume/updateDate/{id}', 'ResumeController@updateDate')->name('updateResumeDate');
         Route::delete('/resume/delete/{id}', 'ResumeController@destroy')->name('deleteResume');
+        Route::post('/resume/activate/{id}', 'ResumeController@activate')->name('activateResume');
     });
 
     Route::get('/favorites', 'FavoritesController@favoriteVacancies')->name('favoriteVacancies');
@@ -73,6 +74,7 @@ Route::group(['prefix' => '/employer/dashboard', 'middleware' => 'employer'], fu
         Route::put('/vacancy/update/{id}', 'VacancyController@update')->name('updateVacancy');
         Route::post('/vacancy/updateDate/{id}', 'VacancyController@updateDate')->name('updateVacancyDate');
         Route::delete('/vacancy/delete/{id}', 'VacancyController@destroy')->name('deleteVacancy');
+        Route::post('/vacancy/activate/{id}', 'VacancyController@activate')->name('activateVacancy');
     });
 
     Route::get('/favorites', 'FavoritesController@favoriteResumes')->name('favoriteResumes');

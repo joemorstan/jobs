@@ -39,6 +39,19 @@
                             <p><strong>{{ $resume->salary }} USD</strong></p>
                         @endif
 
+                        <form action="{{ route('activateResume', ['id' => $resume->id]) }}" method="post" id="activate-resume-{{ $resume->id }}">
+                            {{ csrf_field() }}
+
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="{{ $resume->active }}"
+                                           onclick="document.getElementById('activate-resume-{{ $resume->id }}').submit();"
+                                            {{ !$resume->active ?: 'checked' }}>
+                                    Active
+                                </label>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             @endforeach
