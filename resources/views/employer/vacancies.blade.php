@@ -21,7 +21,6 @@
                         </span>
 
                         <form action="{{ route('updateVacancyDate', ['id' => $vacancy->id]) }}" class="d-inline-block" id="update-vacancy">
-                            {{ csrf_field() }}
                             <button type="submit" class="btn btn-outline-success ml-3">Update</button>
                         </form>
 
