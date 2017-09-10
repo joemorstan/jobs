@@ -80,7 +80,7 @@ class VacancyController extends Controller
         $vacancy->updated_at = Carbon::now();
         $vacancy->save();
 
-        return back();
+        return response()->json(['updatedAt' => $vacancy->updated_at]);
     }
 
     public function destroy($id)

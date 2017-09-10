@@ -20,17 +20,17 @@
                             @endif
                         </span>
 
-                        <form action="{{ route('updateVacancyDate', ['id' => $vacancy->id]) }}" class="d-inline-block" method="post" id="update-vacancy-{{ $vacancy->id }}">
+                        <form action="{{ route('updateVacancyDate', ['id' => $vacancy->id]) }}" class="d-inline-block" id="update-vacancy">
                             {{ csrf_field() }}
-                            <a href="javascript:void(0);" onclick="document.getElementById('update-vacancy-{{ $vacancy->id }}').submit();" class="btn btn-outline-success ml-3">Update</a>
+                            <button type="submit" class="btn btn-outline-success ml-3">Update</button>
                         </form>
 
 
-                        <form action="{{ route('deleteVacancy', ['id' => $vacancy->id]) }}" class="d-block float-right" method="post" id="delete-vacancy-{{ $vacancy->id }}">
+                        <form action="{{ route('deleteVacancy', ['id' => $vacancy->id]) }}" class="d-block float-right" method="post" id="delete-vacancy">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
 
-                            <a href="javascript:void(0);" onclick="document.getElementById('delete-vacancy-{{ $vacancy->id }}').submit();" class="btn btn-danger">Delete</a>
+                            <button type="submit" class="btn btn-danger ml-3">Delete</button>
                         </form>
 
                     </div>
@@ -67,4 +67,38 @@
     </div>
 </div>
 
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('form').filter(function() {
+            return this.id.match(/update-vacancy/);
+        }).submit(function(event){
+            event.preventDefault()
+
+            $form = $(this)
+
+            $.ajax({
+                type: 'POST',
+                url: $form.attr('action'),
+
+                success: function (response) {
+
+                    var date = moment(response.updatedAt.date).format('ll')
+
+                    $form.parent().children('span').text('Updated at ' + date)
+                },
+                error: function (response) {
+                    console.log(response)
+                }
+            })
+        })
+    </script>
 @endsection
