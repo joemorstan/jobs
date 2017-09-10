@@ -80,7 +80,7 @@ class VacancyController extends Controller
         $vacancy->updated_at = Carbon::now();
         $vacancy->save();
 
-        return response()->json(['updatedAt' => $vacancy->updated_at]);
+        return response()->json(['updatedAt' => Carbon::parse($vacancy->updated_at)->toFormattedDateString()]);
     }
 
     public function destroy($id)

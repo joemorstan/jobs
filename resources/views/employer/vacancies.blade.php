@@ -69,7 +69,6 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
     <script>
         $.ajaxSetup({
             headers: {
@@ -89,11 +88,9 @@
                 url: $form.attr('action'),
 
                 success: function (response) {
-
-                    var date = moment(response.updatedAt.date).format('ll')
-
-                    $form.parent().children('span').text('Updated at ' + date)
+                    $form.parent().children('span').text('Updated at ' + response.updatedAt)
                 },
+
                 error: function (response) {
                     console.log(response)
                 }
