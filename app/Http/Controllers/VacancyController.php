@@ -115,6 +115,6 @@ class VacancyController extends Controller
 
         $vacancy->save();
 
-        return back();
+        return response()->json(['active' => $vacancy->active, 'updatedAt' => Carbon::parse($vacancy->updated_at)->toFormattedDateString()]);
     }
 }

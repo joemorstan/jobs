@@ -41,15 +41,13 @@
                             <p><strong>{{ $vacancy->salary }} USD</strong></p>
                         @endif
 
-                        <form action="{{ route('activateVacancy', ['id' => $vacancy->id]) }}" method="post" id="activate-vacancy-{{ $vacancy->id }}">
-                            {{ csrf_field() }}
+                        <form action="{{ route('activateVacancy', ['id' => $vacancy->id]) }}" method="post" id="activate-vacancy">
 
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="{{ $vacancy->active }}"
-                                           onclick="document.getElementById('activate-vacancy-{{ $vacancy->id }}').submit();"
+                                    <input class="form-check-input" type="checkbox"
                                             {{ !$vacancy->active ?: 'checked' }}>
-                                    Active
+                                    {{ $vacancy->active ? 'Deactivate' : 'Activate' }}
                                 </label>
                             </div>
                         </form>
@@ -66,35 +64,4 @@
     </div>
 </div>
 
-@endsection
-
-@section('script')
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $('form').filter(function() {
-            return this.id.match(/update-vacancy/);
-        }).submit(function(event){
-            event.preventDefault()
-
-            $form = $(this)
-
-            $.ajax({
-                type: 'POST',
-                url: $form.attr('action'),
-
-                success: function (response) {
-                    $form.parent().children('span').text('Updated at ' + response.updatedAt)
-                },
-
-                error: function (response) {
-                    console.log(response)
-                }
-            })
-        })
-    </script>
 @endsection
