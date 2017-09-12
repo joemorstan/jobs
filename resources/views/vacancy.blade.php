@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <h4 class="d-inline-block">{{ $vacancy->title }}</h4>
 
-                    @if($user)
+                    @if($user && $user->inRole('client'))
                         @if($user->favoriteVacancies()->where('vacancy_id', $vacancy->id)->first())
                             <form action="{{ route('removeFavoriteVacancy', ['id' => $vacancy->id]) }}" class="d-inline-block float-right" method="post" id="vacancy-{{ $vacancy->id }}">
                                 {{ method_field('DELETE') }}

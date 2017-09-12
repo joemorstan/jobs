@@ -45,3 +45,25 @@ $("form#activate-vacancy > div > label > input").on('change', function(event){
         }
     })
 });
+
+$('a.favorites-btn').click(function (event) {
+    event.preventDefault();
+
+    url = $(this).attr('href');
+    link = $(this)
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+
+        success: function (response) {
+            if (response.added) {
+                link.children('i').addClass('fav-star')
+                link.contents().last().replaceWith(' Remove from favorites')
+            } else {
+                link.children('i').removeClass('fav-star')
+                link.contents().last().replaceWith(' Add to favorites')
+            }
+        }
+    });
+});

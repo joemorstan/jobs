@@ -112,7 +112,8 @@ class VacancyController extends Controller
         } else {
             $vacancy->active = true;
         }
-
+        
+        $vacancy->timestamps = false;
         $vacancy->save();
 
         return response()->json(['active' => $vacancy->active, 'updatedAt' => Carbon::parse($vacancy->updated_at)->toFormattedDateString()]);

@@ -79,8 +79,7 @@ Route::group(['prefix' => '/employer/dashboard', 'middleware' => 'employer'], fu
 
     Route::get('/favorites', 'FavoritesController@favoriteResumes')->name('favoriteResumes');
 
-    Route::post('/favorites/resume/{id}', 'FavoritesController@addResume')->name('addFavoriteResume');
-    Route::delete('/favorites/resume/{id}', 'FavoritesController@removeResume')->name('removeFavoriteResume');
+    Route::get('/favorites/resume/{id}', 'FavoritesController@favoriteResume')->name('favoriteResume');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {

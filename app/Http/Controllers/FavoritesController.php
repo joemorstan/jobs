@@ -29,24 +29,20 @@ class FavoritesController extends Controller
         return back();
     }
 
-    public function addResume($id)
+    public function favoriteResume($id)
     {
         $user = Sentinel::getUser();
         $resume = Resume::find($id);
+        $added = true;
 
-        $user->favoriteResumes()->attach($resume);
+        if ($user->favoriteResumes()->where('resume_id', $id)->first()) {
+            $user->favoriteResumes()->detach($resume);
+            $added = false;
+        } else {
+            $user->favoriteResumes()->attach($resume);
+        }
 
-        return back();
-    }
-
-    public function removeResume($id)
-    {
-        $user = Sentinel::getUser();
-        $resume = Resume::find($id);
-
-        $user->favoriteResumes()->detach($resume);
-
-        return back();
+        return response()->json(['added' => $added]);
     }
 
     public function favoriteVacancies()

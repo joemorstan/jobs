@@ -23,8 +23,8 @@ class LoginController extends Controller
 
                 if (Sentinel::inRole('admin')) {
                     return redirect()->route('adminHome');
-                } elseif (Sentinel::inRole('manager')) {
-                    return redirect()->route('managerHome');
+                } elseif (Sentinel::inRole('employer')) {
+                    return redirect()->route('employerHome');
                 } else {
                     return redirect()->route('home');
                 }
