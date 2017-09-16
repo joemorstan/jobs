@@ -52,18 +52,16 @@ $('a.favorites-btn').click(function (event) {
     url = $(this).attr('href');
     link = $(this)
 
+    if (!link.children('i').hasClass('fav-star')) {
+        link.children('i').addClass('fav-star')
+        link.contents().last().replaceWith(' Remove from favorites')
+    } else {
+        link.children('i').removeClass('fav-star')
+        link.contents().last().replaceWith(' Add to favorites')
+    }
+
     $.ajax({
         type: 'GET',
-        url: url,
-
-        success: function (response) {
-            if (response.added) {
-                link.children('i').addClass('fav-star')
-                link.contents().last().replaceWith(' Remove from favorites')
-            } else {
-                link.children('i').removeClass('fav-star')
-                link.contents().last().replaceWith(' Add to favorites')
-            }
-        }
+        url: url
     });
 });
